@@ -38,6 +38,7 @@ function FUnitFrameTemplateMixin:DrawHealth()
     local r, g, b = GetClassColor(class)
     self.health:SetStatusBarColor(r, g, b)
   else
+    -- TODO: color red for enemy and green for ally / neutral
     self.health:SetStatusBarColor(0, 1, 0, 1)
   end
   self.health.text:SetText(val .. '%')
@@ -103,11 +104,12 @@ function FUnitFrameTemplateMixin:OnLoad()
   self:DrawHealth()
   self:DrawPower()
 
-  -- register for events (TODO: consider using RegisterUnitEvent())
+  -- register for events
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
   if self.unit == 'target' then
     self:RegisterEvent('PLAYER_TARGET_CHANGED', self.unit)
   end
-  self:SetScript('OnEvent', OnEvent)
+  -- we don't want this script to override any inherited templates' "OnEvent" handlers
+  self:HookScript('OnEvent', OnEvent)
 end
