@@ -9,5 +9,6 @@
 embeds.xml
 
 # Core files
+DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
 FigHud.xml

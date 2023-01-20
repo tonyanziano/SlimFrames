@@ -10,12 +10,12 @@
     </KeyValues>
   </Button>
 
-  <Button name="FTargetFrame" inherits="FUnitFrameTemplate, SecureUnitButtonTemplate">
+  <!-- <Button name="FTargetFrame" inherits="FUnitFrame, SecureUnitButtonTemplate">
     <Anchors>
       <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" x="300" />
     </Anchors>
     <KeyValues>
       <KeyValue key="unit" value="target" type="string" />
     </KeyValues>
-  </Button>
+  </Button> -->
 </Ui>

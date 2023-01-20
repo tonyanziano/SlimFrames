@@ -1,8 +1,8 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
   <Script file="UnitFrameTemplate.lua" />
 
-  <Button virtual="true" name="FUnitFrameTemplate" mixin="FUnitFrameMixin">
-    <Size x="200" y="30"/>
+  <Button virtual="true" name="FUnitFrameTemplate" mixin="FUnitFrameTemplateMixin" inherits="DraggableFrameTemplate">
+    <Size x="150" y="20"/>
     <KeyValues>
       <!-- Specifies the unit that the unit frame tracks -->
       <KeyValue key="unit" value="player" type="string" />
@@ -12,7 +12,7 @@
     <Layers>
       <Layer level="BACKGROUND" >
         <Texture parentKey="border">
-          <Size x="154" y="34" />
+          <Size x="154" y="24" />
           <Color r="0" g="0" b="0" a="1" />
           <Anchors>
             <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" />
@@ -24,11 +24,12 @@
     <Frames>
       <!-- health -->
       <StatusBar parentKey="health" minValue="0" maxValue="100">
-        <Size x="150" y="20"/>
+        <Size x="150" y="15"/>
         <Anchors>
           <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" />
         </Anchors>
-				<BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/>
+				<!-- <BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/> -->
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
 
         <Layers>
           <Layer level="BACKGROUND">
@@ -37,12 +38,12 @@
             </Texture>
           </Layer>
           <Layer level="OVERLAY">
-            <FontString parentKey="name" inherits="SystemFont_Shadow_Small" text="">
+            <FontString parentKey="name" inherits="SystemFont_Shadow_Med1_Outline" text="">
               <Anchors>
-                <Anchor point="LEFT" relativePoint="LEFT" x="4" />
+                <Anchor point="LEFT" relativePoint="TOPLEFT" x="4" />
               </Anchors>
             </FontString>
-            <FontString parentKey="text" inherits="SystemFont_Shadow_Small" text="">
+            <FontString parentKey="text" inherits="Game10Font_o1" text="">
               <Anchors>
                 <Anchor point="RIGHT" relativePoint="RIGHT" x="-4" />
               </Anchors>
@@ -53,11 +54,12 @@
 
       <!-- power -->
       <StatusBar parentKey="power" minValue="0" maxValue="100">
-        <Size x="150" y="10"/>
+        <Size x="150" y="5"/>
         <Anchors>
           <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" />
         </Anchors>
-				<BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/>
+				<!-- <BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/> -->
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
         
         <Layers>
           <Layer level="BACKGROUND">
@@ -65,19 +67,19 @@
               <Color r="0" g="0" b="0" a="0.5" />
             </Texture>
           </Layer>
-          <Layer level="OVERLAY">
-            <FontString parentKey="text" inherits="SystemFont_Shadow_Small" text="">
+          <!-- <Layer level="OVERLAY">
+            <FontString parentKey="text" inherits="Game10Font_o1" text="">
               <Anchors>
                 <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" />
               </Anchors>
             </FontString>
-          </Layer>
+          </Layer> -->
         </Layers>
       </StatusBar>
     </Frames>
 
     <Scripts>
-      <OnLoad>
+      <OnLoad inherit="prepend">
         self:OnLoad()
       </OnLoad>
       <OnEnter>

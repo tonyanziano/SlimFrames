@@ -1,0 +1,10 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+  <Script file="DraggableFrameTemplate.lua" />
+  <Frame name="DraggableFrameTemplate" virtual="true" clampedToScreen="true">
+    <Scripts>
+      <OnLoad function="DraggableFrameTemplate_OnLoad" />
+      <OnDragStart function="DraggableFrameTemplate_OnDragStart" />
+      <OnDragStop function="DraggableFrameTemplate_OnDragStop" />
+    </Scripts>
+  </Frame>
+</Ui>

@@ -1,4 +1,4 @@
-FUnitFrameMixin = {}
+FUnitFrameTemplateMixin = {}
 
 local dump = DevTools_Dump
 
@@ -23,7 +23,7 @@ local function getMenuFunctionForUnit(frame, unit)
   return nil
 end
 
-function FUnitFrameMixin:DrawHealth()
+function FUnitFrameTemplateMixin:DrawHealth()
   if not UnitExists(self.unit) then
     return
   end
@@ -45,7 +45,7 @@ function FUnitFrameMixin:DrawHealth()
 end
 
 -- taken from FrameXML
-function FUnitFrameMixin:GetPowerColors()
+function FUnitFrameTemplateMixin:GetPowerColors()
   local powerType, powerToken, altR, altG, altB = UnitPowerType(self.unit)
   local info = PowerBarColor[powerToken]
   local r, g, b
@@ -64,7 +64,7 @@ function FUnitFrameMixin:GetPowerColors()
   return r, g, b
 end
 
-function FUnitFrameMixin:DrawPower()
+function FUnitFrameTemplateMixin:DrawPower()
   if not UnitExists(self.unit) then
     return
   end
@@ -76,7 +76,7 @@ function FUnitFrameMixin:DrawPower()
   local val = Round(min / max * 100)
   self.power:SetValue(val)
   self.power:SetStatusBarColor(r, g, b, 1)
-  self.power.text:SetText(val .. '%')
+  -- self.power.text:SetText(val .. '%')
 end
 
 local function OnEvent(self, event, ...)
@@ -91,7 +91,7 @@ local function OnEvent(self, event, ...)
   end
 end
 
-function FUnitFrameMixin:OnLoad()
+function FUnitFrameTemplateMixin:OnLoad()
   self:RegisterForClicks('LeftButtonUp', 'RightButtonUp');
   if self.unit ~= 'player' then
     RegisterUnitWatch(self)
@@ -107,7 +107,7 @@ function FUnitFrameMixin:OnLoad()
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
   if self.unit == 'target' then
-    self:RegisterUnitEvent('PLAYER_TARGET_CHANGED', self.unit)
+    self:RegisterEvent('PLAYER_TARGET_CHANGED', self.unit)
   end
   self:SetScript('OnEvent', OnEvent)
 end
