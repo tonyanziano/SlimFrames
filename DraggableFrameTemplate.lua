@@ -3,15 +3,16 @@ local function OnEvent(self, event, ...)
   if event == 'ADDON_LOADED' and addonName == 'FigHud' then
     -- let the Blizzard layout cache position the frame to its last known location
     self:SetMovable(true)
-  elseif event == 'PLAYER_ENTERING_WORLD' then
-    self:SetMovable(false)
+  elseif event == 'PLAYER_LOGIN' then
+    -- after the frame is positioned from its last-known position, save it again in the layout cache
+    self:StopMovingOrSizing()
   end
 end
 
 function DraggableFrameTemplate_OnLoad(self)
   self:RegisterForDrag("LeftButton")
   self:RegisterEvent('ADDON_LOADED')
-  self:RegisterEvent('PLAYER_ENTERING_WORLD')
+  self:RegisterEvent('PLAYER_LOGIN')
   self:HookScript('OnEvent', OnEvent)
 end
 
