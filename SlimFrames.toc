@@ -1,5 +1,5 @@
 ## Interface: 100002
-## Title: FigHud
+## Title: SlimFrames
 ## Notes: Customized HUD UI.
 ## DefaultState: enabled
 ## Author: Fignewticus - Zul'jin (H)
@@ -11,4 +11,4 @@ embeds.xml
 # Core files
 DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
-FigHud.xml
+SlimFrames.xml

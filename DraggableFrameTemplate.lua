@@ -1,6 +1,6 @@
 local function OnEvent(self, event, ...)
   local addonName = ...
-  if event == 'ADDON_LOADED' and addonName == 'FigHud' then
+  if event == 'ADDON_LOADED' and addonName == 'SlimFrames' then
     -- let the Blizzard layout cache position the frame to its last known location
     self:SetMovable(true)
   elseif event == 'PLAYER_LOGIN' then

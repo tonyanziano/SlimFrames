@@ -1,6 +1,7 @@
 FUnitFrameTemplateMixin = {}
 
 local dump = DevTools_Dump
+local smoothEnabled = true
 
 -- darken an RGB color by 25%
 local function darkenColor(r, g, b)
@@ -41,7 +42,7 @@ function FUnitFrameTemplateMixin:DrawHealth()
   local val = Round(min / max * 100)
   
   -- TODO: add smooth option
-  if self.options.smooth then
+  if smoothEnabled then
     self.health:SetSmoothedValue(val)
   else
     self.health:SetValue(val)
@@ -95,7 +96,7 @@ function FUnitFrameTemplateMixin:DrawPower()
   
   
   -- TODO: add smooth option
-  if self.options.smooth then
+  if smoothEnabled then
     self.power:SetSmoothedValue(val)
   else
     self.power:SetValue(val)
