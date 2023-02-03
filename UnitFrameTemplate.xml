@@ -23,7 +23,7 @@
 
     <Frames>
       <!-- health -->
-      <StatusBar parentKey="health" minValue="0" maxValue="100">
+      <StatusBar parentKey="health" minValue="0" maxValue="100" mixin="SmoothStatusBarMixin">
         <Size x="150" y="15"/>
         <Anchors>
           <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" />
@@ -52,7 +52,7 @@
       </StatusBar>
 
       <!-- power -->
-      <StatusBar parentKey="power" minValue="0" maxValue="100">
+      <StatusBar parentKey="power" minValue="0" maxValue="100" mixin="SmoothStatusBarMixin">
         <Size x="150" y="5"/>
         <Anchors>
           <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" />

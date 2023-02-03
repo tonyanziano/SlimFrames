@@ -39,7 +39,13 @@ function FUnitFrameTemplateMixin:DrawHealth()
   local min = UnitHealth(self.unit)
   local max = UnitHealthMax(self.unit)
   local val = Round(min / max * 100)
-  self.health:SetValue(val)
+  
+  -- TODO: add smooth option
+  if self.options.smooth then
+    self.health:SetSmoothedValue(val)
+  else
+    self.health:SetValue(val)
+  end
 
   if self.unit == 'player' then
     local _, class = UnitClass(self.unit)
@@ -86,7 +92,14 @@ function FUnitFrameTemplateMixin:DrawPower()
   local min = UnitPower(self.unit, powerType)
   local max = UnitPowerMax(self.unit, powerType)
   local val = Round(min / max * 100)
-  self.power:SetValue(val)
+  
+  
+  -- TODO: add smooth option
+  if self.options.smooth then
+    self.power:SetSmoothedValue(val)
+  else
+    self.power:SetValue(val)
+  end
   self.power:SetStatusBarColor(r, g, b, 1)
   self.power.bg:SetVertexColor(bgR, bgG, bgB)
   -- self.power.text:SetText(val .. '%')
