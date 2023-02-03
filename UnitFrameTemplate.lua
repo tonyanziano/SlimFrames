@@ -2,6 +2,14 @@ FUnitFrameTemplateMixin = {}
 
 local dump = DevTools_Dump
 
+-- darken an RGB color by 25%
+local function darkenColor(r, g, b)
+  r = r * 0.75
+  g = g * 0.75
+  b = b * 0.75
+  return r, g, b
+end
+
 local function getMenuFunctionForUnit(frame, unit)
   if unit == 'player' then
     return function()
@@ -36,7 +44,9 @@ function FUnitFrameTemplateMixin:DrawHealth()
   if self.unit == 'player' then
     local _, class = UnitClass(self.unit)
     local r, g, b = GetClassColor(class)
+    local bgR, bgG, bgB = darkenColor(r, g, b)
     self.health:SetStatusBarColor(r, g, b)
+    self.health.bg:SetVertexColor(bgR, bgG, bgB)
   else
     -- TODO: color red for enemy and green for ally / neutral
     self.health:SetStatusBarColor(0, 1, 0, 1)
@@ -71,18 +81,23 @@ function FUnitFrameTemplateMixin:DrawPower()
   end
 
   local r, g, b = self:GetPowerColors()
+  local bgR, bgG, bgB = darkenColor(r, g, b)
   local powerType = UnitPowerType(self.unit)
   local min = UnitPower(self.unit, powerType)
   local max = UnitPowerMax(self.unit, powerType)
   local val = Round(min / max * 100)
   self.power:SetValue(val)
   self.power:SetStatusBarColor(r, g, b, 1)
+  self.power.bg:SetVertexColor(bgR, bgG, bgB)
   -- self.power.text:SetText(val .. '%')
 end
 
 local function OnEvent(self, event, ...)
   local unit, powerType = ...;
-  if event == 'UNIT_HEALTH' then
+  if event == 'PLAYER_ENTERING_WORLD' then
+    self:DrawHealth()
+    self:DrawHealth()
+  elseif event == 'UNIT_HEALTH' then
     self:DrawHealth()
   elseif event == 'UNIT_POWER_FREQUENT' then
     self:DrawPower()
@@ -105,6 +120,7 @@ function FUnitFrameTemplateMixin:OnLoad()
   self:DrawPower()
 
   -- register for events
+  self:RegisterEvent('PLAYER_ENTERING_WORLD')
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
   if self.unit == 'target' then

@@ -28,12 +28,11 @@
         <Anchors>
           <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" />
         </Anchors>
-				<!-- <BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/> -->
 				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
 
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture file="Interface/Tooltips/UI-Tooltip-Background" setAllPoints="true">
+            <Texture parentKey="bg" file="Interface\TargetingFrame\UI-StatusBar-Glow" setAllPoints="true">
               <Color r="0" g="0" b="0" a="0.5" />
             </Texture>
           </Layer>
@@ -58,12 +57,11 @@
         <Anchors>
           <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" />
         </Anchors>
-				<!-- <BarTexture file="Interface\TargetingFrame\UI-TargetingFrame-BarFill"/> -->
 				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
         
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture file="Interface/Tooltips/UI-Tooltip-Background" setAllPoints="true">
+            <Texture parentKey="bg" file="Interface\TargetingFrame\UI-StatusBar-Glow" setAllPoints="true">
               <Color r="0" g="0" b="0" a="0.5" />
             </Texture>
           </Layer>
