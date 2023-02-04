@@ -12,4 +12,5 @@ embeds.xml
 DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
 PlayerFrame.xml
+TargetFrame.xml
 SlimFrames.xml

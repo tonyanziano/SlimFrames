@@ -30,6 +30,14 @@ local function getMenuFunctionForUnit(frame, unit)
   return nil
 end
 
+-- static health bar colors
+local allyR, allyG, allyB = 23/255, 163/255, 32/255
+local allyBgR, allyBgG, allyBgB = darkenColor(allyR, allyG, allyB)
+local enemyR, enemyG, enemyB = 150/255, 20/255, 20/255
+local enemyBgR, enemyBgG, enemyBgB = darkenColor(enemyR, enemyG, enemyB)
+local neutralR, neutralG, neutralB = 219/255, 198/255, 61/255
+local neutralBgR, neutralBgG, neutralBgB = darkenColor(neutralR, neutralG, neutralB)
+
 function SlimUnitFrameTemplate_DrawHealth(self)
   if not UnitExists(self.unit) then
     return
@@ -46,15 +54,23 @@ function SlimUnitFrameTemplate_DrawHealth(self)
     self.health:SetValue(val)
   end
 
-  if self.unit == 'player' then
+  if UnitIsPlayer(self.unit) then
     local _, class = UnitClass(self.unit)
     local r, g, b = GetClassColor(class)
     local bgR, bgG, bgB = darkenColor(r, g, b)
     self.health:SetStatusBarColor(r, g, b)
     self.health.bg:SetVertexColor(bgR, bgG, bgB)
   else
-    -- TODO: color red for enemy and green for ally / neutral
-    self.health:SetStatusBarColor(0, 1, 0, 1)
+    if UnitIsFriend('player', self.unit) then
+      self.health:SetStatusBarColor(allyR, allyG, allyB)
+      self.health.bg:SetVertexColor(allyBgR, allyBgG, allyBgB)
+    elseif UnitIsEnemy('player', self.unit) then
+      self.health:SetStatusBarColor(enemyR, enemyG, enemyB)
+      self.health.bg:SetVertexColor(enemyBgR, enemyBgG, enemyBgB)
+    else
+      self.health:SetStatusBarColor(neutralR, neutralG, neutralB)
+      self.health.bg:SetVertexColor(neutralBgR, neutralBgG, neutralBgB)
+    end
   end
   self.health.text:SetText(val .. '%')
   self.health.name:SetText(UnitName(self.unit))

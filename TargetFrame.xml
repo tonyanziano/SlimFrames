@@ -1,0 +1,16 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+  <Include file="TargetFrame.lua" />
+
+  <Button name="SlimTargetFrame" inherits="SlimUnitFrameTemplate, SecureUnitButtonTemplate">
+    <Anchors>
+      <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" />
+    </Anchors>
+    <KeyValues>
+      <KeyValue key="unit" value="target" type="string" />
+    </KeyValues>
+
+    <!-- <Scripts>
+      <OnLoad inherit="prepend" function="SlimPlayerFrame_OnLoad" />
+    </Scripts> -->
+  </Button>
+</Ui>
