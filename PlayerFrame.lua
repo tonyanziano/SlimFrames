@@ -1,5 +1,3 @@
-SlimPlayerFrameMixin = {}
-
 local function OnEvent(self, event, ...)
   if event == 'PLAYER_ENTERING_WORLD'
   or event == 'PLAYER_REGEN_DISABLED'
