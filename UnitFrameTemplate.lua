@@ -1,4 +1,4 @@
-FUnitFrameTemplateMixin = {}
+SlimUnitFrameTemplateMixin = {}
 
 local dump = DevTools_Dump
 local smoothEnabled = true
@@ -32,7 +32,7 @@ local function getMenuFunctionForUnit(frame, unit)
   return nil
 end
 
-function FUnitFrameTemplateMixin:DrawHealth()
+function SlimUnitFrameTemplateMixin:DrawHealth()
   if not UnitExists(self.unit) then
     return
   end
@@ -63,7 +63,7 @@ function FUnitFrameTemplateMixin:DrawHealth()
 end
 
 -- taken from FrameXML
-function FUnitFrameTemplateMixin:GetPowerColors()
+function SlimUnitFrameTemplateMixin:GetPowerColors()
   local powerType, powerToken, altR, altG, altB = UnitPowerType(self.unit)
   local info = PowerBarColor[powerToken]
   local r, g, b
@@ -82,7 +82,7 @@ function FUnitFrameTemplateMixin:GetPowerColors()
   return r, g, b
 end
 
-function FUnitFrameTemplateMixin:DrawPower()
+function SlimUnitFrameTemplateMixin:DrawPower()
   if not UnitExists(self.unit) then
     return
   end
@@ -106,38 +106,10 @@ function FUnitFrameTemplateMixin:DrawPower()
   -- self.power.text:SetText(val .. '%')
 end
 
--- TODO: abstract this logic out into just the player frame code
--- it shouldn't live with the generic unit frame stub
-function FUnitFrameTemplateMixin:DrawStatusIcons()
-  if self.unit == 'player' then
-    if not self.areStateIconsSet then
-      self.restIcon:SetTexCoord(0, 0.5, 0, 0.5)
-      self.combatIcon:SetTexCoord(0.5, 1, 0, 0.5)
-      self.areStateIconsSet = true
-    end
-
-    local isInCombat = UnitAffectingCombat(self.unit)
-    local isRested = GetRestState()
-    if isInCombat then
-      self.combatIcon:Show()
-    else
-      self.combatIcon:Hide()
-    end
-    if isRested then
-      self.restIcon:Show()
-    else
-      self.restIcon:Hide()
-    end
-  end
-
-end
-
 local function OnEvent(self, event, ...)
-  local unit, powerType = ...;
   if event == 'PLAYER_ENTERING_WORLD' then
     self:DrawHealth()
     self:DrawPower()
-    self:DrawStatusIcons()
   elseif event == 'UNIT_HEALTH' then
     self:DrawHealth()
   elseif event == 'UNIT_POWER_FREQUENT' then
@@ -145,12 +117,11 @@ local function OnEvent(self, event, ...)
   elseif event == 'PLAYER_TARGET_CHANGED' then
     self:DrawHealth()
     self:DrawPower()
-  elseif event == 'PLAYER_REGEN_DISABLED' or event == 'PLAYER_REGEN_ENABLED' or event == 'PLAYER_UPDATE_RESTING' then
-    self:DrawStatusIcons()
   end
 end
 
-function FUnitFrameTemplateMixin:OnLoad()
+-- TODO: consider moving to SlimUnitFrameTemplate_OnLoad pattern
+function SlimUnitFrameTemplateMixin:OnLoad()
   self:RegisterForClicks('LeftButtonUp', 'RightButtonUp');
   if self.unit ~= 'player' then
     RegisterUnitWatch(self)
@@ -158,17 +129,8 @@ function FUnitFrameTemplateMixin:OnLoad()
   local showmenu = getMenuFunctionForUnit(self, self.unit)
   SecureUnitButton_OnLoad(self, self.unit, showmenu)
 
-  -- TODO: probably abstract all drawing functions away into one function
-  -- initial draw
-  self:DrawHealth()
-  self:DrawPower()
-  self:DrawStatusIcons()
-
   -- register for events
   self:RegisterEvent('PLAYER_ENTERING_WORLD')
-  self:RegisterEvent('PLAYER_REGEN_DISABLED')
-  self:RegisterEvent('PLAYER_REGEN_ENABLED')
-  self:RegisterEvent('PLAYER_UPDATE_RESTING')
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
   if self.unit == 'target' then

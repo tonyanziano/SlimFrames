@@ -1,21 +1,3 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
   <Script file="SlimFrames.lua"/>
-
-  <Button name="FPlayerFrame" inherits="FUnitFrameTemplate, SecureUnitButtonTemplate">
-    <Anchors>
-      <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" />
-    </Anchors>
-    <KeyValues>
-      <KeyValue key="unit" value="player" type="string" />
-    </KeyValues>
-  </Button>
-
-  <!-- <Button name="FTargetFrame" inherits="FUnitFrame, SecureUnitButtonTemplate">
-    <Anchors>
-      <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" x="300" />
-    </Anchors>
-    <KeyValues>
-      <KeyValue key="unit" value="target" type="string" />
-    </KeyValues>
-  </Button> -->
 </Ui>

@@ -11,4 +11,5 @@ embeds.xml
 # Core files
 DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
+PlayerFrame.xml
 SlimFrames.xml
