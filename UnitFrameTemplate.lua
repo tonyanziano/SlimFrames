@@ -1,5 +1,3 @@
-SlimUnitFrameTemplateMixin = {}
-
 local dump = DevTools_Dump
 local smoothEnabled = true
 
@@ -32,7 +30,7 @@ local function getMenuFunctionForUnit(frame, unit)
   return nil
 end
 
-function SlimUnitFrameTemplateMixin:DrawHealth()
+function SlimUnitFrameTemplate_DrawHealth(self)
   if not UnitExists(self.unit) then
     return
   end
@@ -63,7 +61,7 @@ function SlimUnitFrameTemplateMixin:DrawHealth()
 end
 
 -- taken from FrameXML
-function SlimUnitFrameTemplateMixin:GetPowerColors()
+function SlimUnitFrameTemplate_GetPowerColors(self)
   local powerType, powerToken, altR, altG, altB = UnitPowerType(self.unit)
   local info = PowerBarColor[powerToken]
   local r, g, b
@@ -82,12 +80,12 @@ function SlimUnitFrameTemplateMixin:GetPowerColors()
   return r, g, b
 end
 
-function SlimUnitFrameTemplateMixin:DrawPower()
+function SlimUnitFrameTemplate_DrawPower(self)
   if not UnitExists(self.unit) then
     return
   end
 
-  local r, g, b = self:GetPowerColors()
+  local r, g, b = SlimUnitFrameTemplate_GetPowerColors(self)
   local bgR, bgG, bgB = darkenColor(r, g, b)
   local powerType = UnitPowerType(self.unit)
   local min = UnitPower(self.unit, powerType)
@@ -108,20 +106,19 @@ end
 
 local function OnEvent(self, event, ...)
   if event == 'PLAYER_ENTERING_WORLD' then
-    self:DrawHealth()
-    self:DrawPower()
+    SlimUnitFrameTemplate_DrawHealth(self)
+    SlimUnitFrameTemplate_DrawPower(self)
   elseif event == 'UNIT_HEALTH' then
-    self:DrawHealth()
+    SlimUnitFrameTemplate_DrawHealth(self)
   elseif event == 'UNIT_POWER_FREQUENT' then
-    self:DrawPower()
+    SlimUnitFrameTemplate_DrawPower(self)
   elseif event == 'PLAYER_TARGET_CHANGED' then
-    self:DrawHealth()
-    self:DrawPower()
+    SlimUnitFrameTemplate_DrawHealth(self)
+    SlimUnitFrameTemplate_DrawPower(self)
   end
 end
 
--- TODO: consider moving to SlimUnitFrameTemplate_OnLoad pattern
-function SlimUnitFrameTemplateMixin:OnLoad()
+function SlimUnitFrameTemplate_OnLoad(self)
   self:RegisterForClicks('LeftButtonUp', 'RightButtonUp');
   if self.unit ~= 'player' then
     RegisterUnitWatch(self)
