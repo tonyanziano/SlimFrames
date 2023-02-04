@@ -130,6 +130,8 @@ function SlimUnitFrameTemplate_OnLoad(self)
   self:RegisterEvent('PLAYER_ENTERING_WORLD')
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
+
+  -- TODO: consider abstracting to target frame code
   if self.unit == 'target' then
     self:RegisterEvent('PLAYER_TARGET_CHANGED', self.unit)
   end
