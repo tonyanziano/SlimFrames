@@ -16,7 +16,10 @@ local function getMenuFunctionForUnit(frame, unit)
     end
   elseif unit == 'target' then
     return function()
-      ToggleDropDownMenu(1, nil, TargetFrameDropDown, frame, 0, 0);
+      -- NOTE: due to how the Blizzard target frame code is organized,
+      -- the target frame dropdown is a property of an inherited template
+      -- and not a global like the other dropdown frames
+      ToggleDropDownMenu(1, nil, TargetFrame.DropDown, frame, 0, 0);
     end
   elseif strfind(unit, 'party', 0) then
     return function()
@@ -139,6 +142,8 @@ function SlimUnitFrameTemplate_OnLoad(self)
   if self.unit ~= 'player' then
     RegisterUnitWatch(self)
   end
+  
+  -- configure dropdown menu on right click
   local showmenu = getMenuFunctionForUnit(self, self.unit)
   SecureUnitButton_OnLoad(self, self.unit, showmenu)
 
