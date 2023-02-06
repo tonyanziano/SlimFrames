@@ -37,7 +37,8 @@
             </Texture>
           </Layer>
           <Layer level="OVERLAY">
-            <FontString parentKey="name" inherits="SystemFont_Shadow_Med1_Outline" text="">
+            <FontString parentKey="name" inherits="SystemFont_Shadow_Med1_Outline" text="" wordwrap="false" justifyH="LEFT">
+              <Size x="100" />
               <Anchors>
                 <Anchor point="LEFT" relativePoint="TOPLEFT" x="4" />
               </Anchors>
