@@ -3,7 +3,7 @@
 -- that loads the coming config DB and then creates a frame based on if the
 -- module is enabled or not
 local playerFrameEnabled = true
-local targetFrameEnabled = false
+local targetFrameEnabled = true
 local focusFrameEnabled = false
 
 -- hide default frames
@@ -12,7 +12,10 @@ if playerFrameEnabled then
 end
 
 if targetFrameEnabled then
-  
+  UnregisterUnitWatch(TargetFrame)
+  TargetFrame:SetScript('OnUpdate', nil)
+  -- the Blizzard target frame uses the Update function to toggle its own visibility
+  TargetFrame.Update = function () end
 end
 
 if focusFrameEnabled then
