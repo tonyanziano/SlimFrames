@@ -15,15 +15,12 @@ function DrawStatusIcons(self)
   end
 
   local isInCombat = UnitAffectingCombat(self.unit)
-  -- TODO: this needs to reflect if the user can instantly logout or not -- or is in a resting zone
-  -- not just has rested exp stored
-  local isRested = GetRestState()
   if isInCombat then
     self.combatIcon:Show()
   else
     self.combatIcon:Hide()
   end
-  if isRested then
+  if IsResting() then
     self.restIcon:Show()
   else
     self.restIcon:Hide()
