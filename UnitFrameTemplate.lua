@@ -75,7 +75,12 @@ function SlimUnitFrameTemplate_DrawHealth(self)
       self.health.bg:SetVertexColor(neutralBgR, neutralBgG, neutralBgB)
     end
   end
-  self.health.text:SetText(val .. '%')
+  
+  if val == 0 then
+    self.health.text:SetText('DEAD')
+  else
+    self.health.text:SetText(val .. '%')
+  end
   self.health.name:SetText(UnitName(self.unit))
 end
 
