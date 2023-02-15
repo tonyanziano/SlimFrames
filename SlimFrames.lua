@@ -6,9 +6,12 @@ local playerFrameEnabled = true
 local targetFrameEnabled = true
 local focusFrameEnabled = false
 
+-- TODO: need to figure out how to hide these during a cinematic -- maybe a frame strata issue?
 -- hide default frames
 if playerFrameEnabled then
+  -- TODO: player frame keeps popping up sometimes -- figure out how to stop it
   PlayerFrame:Hide()
+  PlayerFrame:SetScript('OnShow', function(self) self:Hide() end)
 end
 
 if targetFrameEnabled then
