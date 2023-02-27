@@ -5,10 +5,11 @@
 ## Author: Fignewticus - Zul'jin (H)
 ## Version 1.0.0
 
-# Load boilerplate
-embeds.xml
+# Load 3rd party dependencies
+Embeds.xml
 
 # Core files
+Init.lua
 DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
 PlayerFrame.xml
