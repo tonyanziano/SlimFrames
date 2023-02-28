@@ -1,5 +1,4 @@
 local dump = DevTools_Dump
-local smoothEnabled = true
 
 -- darken an RGB color by 25%
 local function darkenColor(r, g, b)
@@ -48,10 +47,14 @@ function SlimUnitFrameTemplate_DrawHealth(self)
 
   local min = UnitHealth(self.unit)
   local max = UnitHealthMax(self.unit)
-  local val = Round(min / max * 100)
-  
-  -- TODO: add smooth option
-  if smoothEnabled then
+  local val
+  if max == 0 then
+    val = 0  -- prevent against dividing by 0
+  else
+    val = Round(min / max * 100)
+  end
+
+  if SlimFrames.db.global.smoothEnabled then
     self.health:SetSmoothedValue(val)
   else
     self.health:SetValue(val)
@@ -114,11 +117,14 @@ function SlimUnitFrameTemplate_DrawPower(self)
   local powerType = UnitPowerType(self.unit)
   local min = UnitPower(self.unit, powerType)
   local max = UnitPowerMax(self.unit, powerType)
-  local val = Round(min / max * 100)
+  local val
+  if max == 0 then
+    val = 0  -- prevent against dividing by 0
+  else
+    val = Round(min / max * 100)
+  end
   
-  
-  -- TODO: add smooth option
-  if smoothEnabled then
+  if SlimFrames.db.global.smoothEnabled then
     self.power:SetSmoothedValue(val)
   else
     self.power:SetValue(val)

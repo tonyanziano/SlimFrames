@@ -44,6 +44,16 @@ local optionsConfig = {
             SlimFrames.db.global.scale = val
             SlimFrames:SetMasterScale()
           end
+        },
+        smooth = {
+          order = 30,
+          name = 'Smooth updates',
+          desc = 'Toggles whether health and power bars smoothly animate on updates',
+          type = 'toggle',
+          get = function(info) return SlimFrames.db.global.smoothEnabled end,
+          set = function(info, val)
+            SlimFrames.db.global.smoothEnabled = val
+          end
         }
       }
     },
@@ -80,7 +90,7 @@ local optionsConfig = {
           order = 100,
           name = 'Health height',
           type = 'range',
-          min = 20,
+          min = 15,
           max = 100,
           step = 1,
           isPercent = false,
@@ -126,6 +136,7 @@ LibStub('AceConfig-3.0'):RegisterOptionsTable('SlimFrames', optionsConfig, nil)
 local defaults = {
   global = {
     scale = 1,
+    smoothEnabled = true,
     playerEnabled = true,
     playerWidth = 150,
     playerHealthHeight = 15,
@@ -134,6 +145,7 @@ local defaults = {
   },
   profile = {
     scale = 1,
+    smoothEnabled = true,
     playerEnabled = true,
     playerWidth = 150,
     playerHealthHeight = 15,
