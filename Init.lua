@@ -19,6 +19,12 @@ end
 -- internal modifier to get scale looking right
 local internalScaleMultiplier = 1.35
 
+-- TODO: consider making the options config dynamic for each frame so we don't have to have such a large
+-- object for options
+
+-- TODO: add options for configuring what text to show on frames and their behaviors
+-- ex: percentage vs abs value
+
 -- register addon config
 local optionsConfig = {
   name = 'SlimFrames',
@@ -32,8 +38,9 @@ local optionsConfig = {
       inline = true,
       args = {
         scale = {
-          order = 20,
+          order = 10,
           name = 'Scale',
+          desc = 'Adjusts the scale of all SlimFrames frames',
           type = 'range',
           min = 0.6,
           max = 2,
@@ -46,14 +53,15 @@ local optionsConfig = {
           end
         },
         smooth = {
-          order = 30,
+          order = 20,
           name = 'Smooth updates',
           desc = 'Toggles whether health and power bars smoothly animate on updates',
           type = 'toggle',
           get = function(info) return SlimFrames.db.global.smoothEnabled end,
           set = function(info, val)
             SlimFrames.db.global.smoothEnabled = val
-          end
+          end,
+          width = 'full'
         }
       }
     },
@@ -75,6 +83,7 @@ local optionsConfig = {
         width = {
           order = 20,
           name = 'Width',
+          desc = 'Sets the width of the player frame',
           type = 'range',
           min = 80,
           max = 400,
@@ -87,8 +96,9 @@ local optionsConfig = {
           end
         },
         healthHeight = {
-          order = 100,
+          order = 21,
           name = 'Health height',
+          desc = 'Sets the width of the health bar portion of the player frame',
           type = 'range',
           min = 15,
           max = 100,
@@ -101,8 +111,9 @@ local optionsConfig = {
           end
         },
         powerHeight = {
-          order = 100,
+          order = 22,
           name = 'Power height',
+          desc = 'Sets the width of the power bar portion of the player frame',
           type = 'range',
           min = 0,
           max = 50,
@@ -112,8 +123,74 @@ local optionsConfig = {
           set = function (info, val)
             SlimFrames.db.global.playerPowerHeight = val
             SlimFrames:RedrawPlayerFrame()
+          end,
+        },
+				dummySeparator0 = {
+					type = "description",
+					name = " ",
+					order = 14,
+					width = "full",
+				},
+        xPos = {
+          order = 30,
+          name = 'X position',
+          desc = 'Sets the x position of the player frame',
+          type = 'range',
+          softMin = -999,
+          softMax = 999,
+          min = -2000,
+          max = 2000,
+          step = 10,
+          isPercent = false,
+          get = function () return SlimFrames.db.global.playerX end,
+          set = function (info, val)
+            SlimFrames.db.global.playerX = val
+            SlimFrames:RedrawPlayerFrame()
           end
         },
+        yPos = {
+          order = 31,
+          name = 'Y position',
+          desc = 'Sets the y position of the player frame',
+          type = 'range',
+          softMin = -999,
+          softMax = 999,
+          min = -2000,
+          max = 2000,
+          step = 1,
+          isPercent = false,
+          get = function () return SlimFrames.db.global.playerY end,
+          set = function (info, val)
+            SlimFrames.db.global.playerY = val
+            SlimFrames:RedrawPlayerFrame()
+          end
+        },
+				dummySeparator1 = {
+					type = "description",
+					name = " ",
+					order = 40,
+					width = "full",
+				},
+        centerHorizontally = {
+          order = 41,
+          name = 'Center horizontally',
+          desc = 'Center the player frame horizontally with respect to the screen',
+          type = 'execute',
+          func = function ()
+            SlimFrames.db.global.playerX = 0
+            SlimFrames:RedrawPlayerFrame()
+          end
+        },
+        centerVertically = {
+          order = 42,
+          name = 'Center vertically',
+          desc = 'Center the player frame vertically with respect to the screen',
+          type = 'execute',
+          func = function ()
+            SlimFrames.db.global.playerY = 0
+            SlimFrames:RedrawPlayerFrame()
+          end
+        }
       }
     },
     target = {
@@ -141,7 +218,11 @@ local defaults = {
     playerWidth = 150,
     playerHealthHeight = 15,
     playerPowerHeight = 5,
-    targetEnabled = true
+    playerX = -140,
+    playerY = -100,
+    targetEnabled = true,
+    targetX = 140,
+    targetY = -100,
   },
   profile = {
     scale = 1,
@@ -150,7 +231,11 @@ local defaults = {
     playerWidth = 150,
     playerHealthHeight = 15,
     playerPowerHeight = 5,
-    targetEnabled = true
+    playerX = -140,
+    playerY = -100,
+    targetEnabled = true,
+    targetX = 140,
+    targetY = -100,
   }
 }
 
@@ -165,6 +250,8 @@ function SlimFrames:RedrawPlayerFrame()
   local powerHeight = SlimFrames.db.global.playerPowerHeight
   local frameHeight = healthHeight + powerHeight
 
+  SlimPlayerFrame:ClearAllPoints()
+  SlimPlayerFrame:SetPoint('CENTER', nil, 'CENTER', SlimFrames.db.global.playerX, SlimFrames.db.global.playerY)
   SlimPlayerFrame:SetSize(SlimFrames.db.global.playerWidth, frameHeight)
   SlimPlayerFrame.health:SetHeight(healthHeight)
   SlimPlayerFrame.power:SetHeight(powerHeight)
