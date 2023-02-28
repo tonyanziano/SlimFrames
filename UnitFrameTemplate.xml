@@ -15,7 +15,10 @@
           <Size x="154" y="24" />
           <Color r="0" g="0" b="0" a="1" />
           <Anchors>
-            <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" />
+            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-2" y="2" />
+            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="2" y="2" />
+            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="-2" y="-2" />
+            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="2" y="-2" />
           </Anchors>
         </Texture>
       </Layer>
@@ -27,6 +30,8 @@
         <Size x="150" y="15"/>
         <Anchors>
           <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" />
+          <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" />
+          <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" />
         </Anchors>
 				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
 
@@ -57,6 +62,8 @@
         <Size x="150" y="5"/>
         <Anchors>
           <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" />
+          <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" />
         </Anchors>
 				<BarTexture file="Interface\TargetingFrame\UI-StatusBar-Glow"/>
         

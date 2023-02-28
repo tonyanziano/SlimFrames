@@ -4,14 +4,17 @@
 ## DefaultState: enabled
 ## Author: Fignewticus - Zul'jin (H)
 ## Version 1.0.0
+## SavedVariables: SlimFramesDB
 
 # Load 3rd party dependencies
 Embeds.xml
 
-# Core files
-Init.lua
+# Load core files
+SlimFrames.xml
 DraggableFrameTemplate.xml
 UnitFrameTemplate.xml
 PlayerFrame.xml
 TargetFrame.xml
-SlimFrames.xml
+
+# Initialize addon
+Init.lua
