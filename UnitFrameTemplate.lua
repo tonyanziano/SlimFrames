@@ -8,6 +8,18 @@ local function darkenColor(r, g, b)
   return r, g, b
 end
 
+-- turn a large number into a shortened representation if necessary
+-- ex. 1230000 -> 1.23M  |  539240 -> 539.2K
+function prettyPrintNumber(n)
+  if n >= 1000000 then
+    return format('%.2f M', n / 1000000)
+  elseif n >= 1000 then
+    return format('%i K', n /  1000)
+  else
+    return n
+  end
+end
+
 local function getMenuFunctionForUnit(frame, unit)
   if unit == 'player' then
     return function()
@@ -82,7 +94,11 @@ function SlimUnitFrameTemplate_DrawHealth(self)
   if val == 0 then
     self.health.text:SetText('DEAD')
   else
-    self.health.text:SetText(val .. '%')
+    if SlimFrames.db.global.showHealthAsPercent then
+      self.health.text:SetText(val .. '%')
+    else
+      self.health.text:SetText(prettyPrintNumber(min))
+    end
   end
   self.health.name:SetText(UnitName(self.unit))
 end

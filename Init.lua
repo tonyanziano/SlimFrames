@@ -62,6 +62,18 @@ local optionsConfig = {
             SlimFrames.db.global.smoothEnabled = val
           end,
           width = 'full'
+        },
+        showHealthAsPercent = {
+          order = 30,
+          width = 'full',
+          name = 'Show health as percent',
+          desc = 'Toggles between showing health as a percentage or as an absolute value',
+          type = 'toggle',
+          get = function(info) return SlimFrames.db.global.showHealthAsPercent end,
+          set = function(info, val)
+            SlimFrames.db.global.showHealthAsPercent = val
+            SlimFrames:RedrawPlayerFrame()
+          end
         }
       }
     },
@@ -212,27 +224,35 @@ LibStub('AceConfig-3.0'):RegisterOptionsTable('SlimFrames', optionsConfig, nil)
 
 local defaults = {
   global = {
+    -- general
     scale = 1,
     smoothEnabled = true,
+    showHealthAsPercent = true,
+    -- player
     playerEnabled = true,
     playerWidth = 150,
     playerHealthHeight = 15,
     playerPowerHeight = 5,
     playerX = -140,
     playerY = -100,
+    -- target
     targetEnabled = true,
     targetX = 140,
     targetY = -100,
   },
   profile = {
+    -- general
     scale = 1,
     smoothEnabled = true,
+    showHealthAsPercent = true,
+    -- player
     playerEnabled = true,
     playerWidth = 150,
     playerHealthHeight = 15,
     playerPowerHeight = 5,
     playerX = -140,
     playerY = -100,
+    -- target
     targetEnabled = true,
     targetX = 140,
     targetY = -100,
@@ -255,6 +275,10 @@ function SlimFrames:RedrawPlayerFrame()
   SlimPlayerFrame:SetSize(SlimFrames.db.global.playerWidth, frameHeight)
   SlimPlayerFrame.health:SetHeight(healthHeight)
   SlimPlayerFrame.power:SetHeight(powerHeight)
+
+  -- call regular drawing functions
+  SlimUnitFrameTemplate_DrawHealth(SlimPlayerFrame)
+  SlimUnitFrameTemplate_DrawPower(SlimPlayerFrame)
 end
 
 function SlimFrames:RedrawAllFrames()
