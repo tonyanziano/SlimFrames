@@ -158,9 +158,6 @@ local function OnEvent(self, event, ...)
     SlimUnitFrameTemplate_DrawHealth(self)
   elseif event == 'UNIT_POWER_FREQUENT' then
     SlimUnitFrameTemplate_DrawPower(self)
-  elseif event == 'PLAYER_TARGET_CHANGED' then
-    SlimUnitFrameTemplate_DrawHealth(self)
-    SlimUnitFrameTemplate_DrawPower(self)
   end
 end
 
@@ -178,11 +175,7 @@ function SlimUnitFrameTemplate_OnLoad(self)
   self:RegisterEvent('PLAYER_ENTERING_WORLD')
   self:RegisterUnitEvent('UNIT_HEALTH', self.unit)
   self:RegisterUnitEvent('UNIT_POWER_FREQUENT', self.unit)
-
-  -- TODO: consider abstracting to target frame code
-  if self.unit == 'target' then
-    self:RegisterEvent('PLAYER_TARGET_CHANGED', self.unit)
-  end
+  
   -- we don't want this script to override any inherited templates' "OnEvent" handlers
   self:HookScript('OnEvent', OnEvent)
 end

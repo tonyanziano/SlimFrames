@@ -33,6 +33,7 @@ function SlimPlayerFrame_OnLoad(self)
   self:RegisterEvent('PLAYER_REGEN_DISABLED')
   self:RegisterEvent('PLAYER_REGEN_ENABLED')
   self:RegisterEvent('PLAYER_UPDATE_RESTING')
+
   -- we don't want this script to override any inherited templates' "OnEvent" handlers
   self:HookScript('OnEvent', OnEvent)
 end

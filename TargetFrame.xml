@@ -9,8 +9,8 @@
       <KeyValue key="unit" value="target" type="string" />
     </KeyValues>
 
-    <!-- <Scripts>
-      <OnLoad inherit="prepend" function="SlimPlayerFrame_OnLoad" />
-    </Scripts> -->
+    <Scripts>
+      <OnLoad inherit="prepend" function="SlimTargetFrame_OnLoad" />
+    </Scripts>
   </Button>
 </Ui>
