@@ -14,7 +14,7 @@ function prettyPrintNumber(n)
   if n >= 1000000 then
     return format('%.2f M', n / 1000000)
   elseif n >= 1000 then
-    return format('%i K', n /  1000)
+    return format('%i.1f K', n /  1000)
   else
     return n
   end
@@ -94,10 +94,15 @@ function SlimUnitFrameTemplate_DrawHealth(self)
   if val == 0 then
     self.health.text:SetText('DEAD')
   else
-    if SlimFrames.db.global.showHealthAsPercent then
+    if SlimFrames.db.global.showAbsoluteHealth and SlimFrames.db.global.showPercentHealth then
+      self.health.text:SetText(format('%s | %s', prettyPrintNumber(min), val .. '%'))
+    elseif SlimFrames.db.global.showAbsoluteHealth then
+      self.health.text:SetText(prettyPrintNumber(min))
+    elseif SlimFrames.db.global.showPercentHealth then
       self.health.text:SetText(val .. '%')
     else
-      self.health.text:SetText(prettyPrintNumber(min))
+      -- hide health text
+      self.health.text:SetText('')
     end
   end
   self.health.name:SetText(UnitName(self.unit))

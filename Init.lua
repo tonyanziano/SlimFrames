@@ -63,15 +63,27 @@ local optionsConfig = {
           end,
           width = 'full'
         },
-        showHealthAsPercent = {
+        showAbsoluteHealth = {
           order = 30,
           width = 'full',
-          name = 'Show health as percent',
-          desc = 'Toggles between showing health as a percentage or as an absolute value',
+          name = 'Show absolute health value',
+          desc = 'Toggles showing an absolute value segment of health info',
           type = 'toggle',
-          get = function(info) return SlimFrames.db.global.showHealthAsPercent end,
+          get = function(info) return SlimFrames.db.global.showAbsoluteHealth end,
           set = function(info, val)
-            SlimFrames.db.global.showHealthAsPercent = val
+            SlimFrames.db.global.showAbsoluteHealth = val
+            SlimFrames:RedrawPlayerFrame()
+          end
+        },
+        showPercentHealth = {
+          order = 40,
+          width = 'full',
+          name = 'Show percent health value',
+          desc = 'Toggles showing a percent value segment of health info',
+          type = 'toggle',
+          get = function(info) return SlimFrames.db.global.showPercentHealth end,
+          set = function(info, val)
+            SlimFrames.db.global.showPercentHealth = val
             SlimFrames:RedrawPlayerFrame()
           end
         }
@@ -227,7 +239,8 @@ local defaults = {
     -- general
     scale = 1,
     smoothEnabled = true,
-    showHealthAsPercent = true,
+    showPercentHealth = true,
+    showAbsoluteHealth = true,
     -- player
     playerEnabled = true,
     playerWidth = 150,
