@@ -48,7 +48,7 @@
                 <Anchor point="LEFT" relativePoint="TOPLEFT" x="4" />
               </Anchors>
             </FontString>
-            <FontString parentKey="text" inherits="Game10Font_o1" text="">
+            <FontString parentKey="text" inherits="SystemFont_Outline_Small" text="">
               <Anchors>
                 <Anchor point="RIGHT" relativePoint="RIGHT" x="-4" />
               </Anchors>
