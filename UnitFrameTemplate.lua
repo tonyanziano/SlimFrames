@@ -14,7 +14,7 @@ function prettyPrintNumber(n)
   if n >= 1000000 then
     return format('%.2f M', n / 1000000)
   elseif n >= 1000 then
-    return format('%i.1f K', n /  1000)
+    return format('%.1f K', n /  1000)
   else
     return n
   end
