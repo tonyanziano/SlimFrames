@@ -9,6 +9,9 @@
 # Load 3rd party dependencies
 Embeds.xml
 
+# Internal utils
+DebuggingUtils.lua
+
 # Load core files
 SlimFrames.xml
 DraggableFrameTemplate.xml
