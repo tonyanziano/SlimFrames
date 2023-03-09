@@ -1,0 +1,48 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+  <Script file="BorderedFrameTemplate.lua" />
+
+  <Frame name="SlimBorderedFrameTemplate" virtual="true">
+    <KeyValues>
+      <!-- Specifies size of the border -->
+      <KeyValue key="borderSize" value="1" type="number" />
+      <!-- Specifies R color component of the border -->
+      <KeyValue key="borderColorR" value="0" type="number" />
+      <!-- Specifies G color component of the border -->
+      <KeyValue key="borderColorG" value="0" type="number" />
+      <!-- Specifies B color component of the border -->
+      <KeyValue key="borderColorB" value="0" type="number" />
+      <!-- Specifies A color component of the border -->
+      <KeyValue key="borderColorA" value="1" type="number" />
+      <!-- Specifies the visibility of the border -->
+      <KeyValue key="isBorderHidden" value="false" type="boolean" />
+    </KeyValues>
+
+    <Layers>
+      <Layer level="BACKGROUND">
+        <!-- left border -->
+        <Texture parentKey="left" parentArray="borders">
+          <Color r="0" g="0" b="0" a="1"/>
+        </Texture>
+        
+        <!-- right border -->
+        <Texture parentKey="right" parentArray="borders">
+          <Color r="0" g="0" b="0" a="1"/>
+        </Texture>
+        
+        <!-- top border -->
+        <Texture parentKey="top" parentArray="borders">
+          <Color r="0" g="0" b="0" a="1"/>
+        </Texture>
+        
+        <!-- bottom border -->
+        <Texture parentKey="bottom" parentArray="borders">
+          <Color r="0" g="0" b="0" a="1"/>
+        </Texture>
+      </Layer>
+    </Layers>
+
+    <Scripts>
+      <OnLoad inherit="prepend" function="SlimBorderedFrameTemplate_OnLoad" />
+    </Scripts>
+  </Frame>
+</Ui>
