@@ -16,9 +16,9 @@ local function SlimBorderedFrameTemplate_RedrawBorder(frame)
 
     -- adjust border sizes
     PixelUtil.SetWidth(left, borderSize, minBorderSize)
-    PixelUtil.SetWidth(frame.right, borderSize, minBorderSize)
-    PixelUtil.SetHeight(frame.top, borderSize, minBorderSize)
-    PixelUtil.SetHeight(frame.bottom, borderSize, minBorderSize)
+    PixelUtil.SetWidth(right, borderSize, minBorderSize)
+    PixelUtil.SetHeight(top, borderSize, minBorderSize)
+    PixelUtil.SetHeight(bottom, borderSize, minBorderSize)
 
     -- adjust border colors
     local r, g, b, a = frame.borderColorR, frame.borderColorG, frame.borderColorB, frame.borderColorA
@@ -28,17 +28,21 @@ local function SlimBorderedFrameTemplate_RedrawBorder(frame)
     bottom:SetColorTexture(r, g, b, a)
 
     -- set border positions relative to frame
-    PixelUtil.SetPoint(left, 'TOPRIGHT', frame, 'TOPLEFT', -borderSize, borderSize, minBorderSize)
-    PixelUtil.SetPoint(left, 'BOTTOMRIGHT', frame, 'BOTTOMLEFT', -borderSize, -borderSize, minBorderSize)
+    left:ClearAllPoints()
+    PixelUtil.SetPoint(left, 'TOPRIGHT', frame, 'TOPLEFT', 0, borderSize)
+    PixelUtil.SetPoint(left, 'BOTTOMRIGHT', frame, 'BOTTOMLEFT', 0, -borderSize)
 
-    PixelUtil.SetPoint(right, 'TOPLEFT', frame, 'TOPRIGHT', borderSize, borderSize, minBorderSize)
-    PixelUtil.SetPoint(right, 'BOTTOMLEFT', frame, 'BOTTOMRIGHT', borderSize, -borderSize, minBorderSize)
+    right:ClearAllPoints()
+    PixelUtil.SetPoint(right, 'TOPLEFT', frame, 'TOPRIGHT', 0, borderSize)
+    PixelUtil.SetPoint(right, 'BOTTOMLEFT', frame, 'BOTTOMRIGHT', 0, -borderSize)
 
-    PixelUtil.SetPoint(top, 'BOTTOMLEFT', frame, 'TOPLEFT', -borderSize, borderSize, minBorderSize)
-    PixelUtil.SetPoint(top, 'BOTTOMRIGHT', frame, 'TOPRIGHT', borderSize, borderSize, minBorderSize)
+    top:ClearAllPoints()
+    PixelUtil.SetPoint(top, 'BOTTOMLEFT', frame, 'TOPLEFT', -borderSize, 0)
+    PixelUtil.SetPoint(top, 'BOTTOMRIGHT', frame, 'TOPRIGHT', borderSize, 0)
 
-    PixelUtil.SetPoint(bottom, 'TOPLEFT', frame, 'BOTTOMLEFT', -borderSize, -borderSize, minBorderSize)
-    PixelUtil.SetPoint(bottom, 'TOPRIGHT', frame, 'BOTTOMRIGHT', borderSize, -borderSize, minBorderSize)
+    bottom:ClearAllPoints()
+    PixelUtil.SetPoint(bottom, 'TOPLEFT', frame, 'BOTTOMLEFT', -borderSize, 0)
+    PixelUtil.SetPoint(bottom, 'TOPRIGHT', frame, 'BOTTOMRIGHT', borderSize, 0)
   end
 end
 
