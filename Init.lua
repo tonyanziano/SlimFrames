@@ -306,6 +306,13 @@ function SlimFrames:RefreshConfig()
   end
 end
 
+-- small function that is used to force a frame to hide itself
+-- (used in conjunction with an 'OnShow' event handler)
+function forceHideFrame(self)
+  SF:log(format('Force hiding %s frame', self:GetName()))
+  self:Hide()
+end
+
 function SlimFrames:OnInitialize()
   -- register DB / persistent storage
   self.db = LibStub('AceDB-3.0'):New('SlimFramesDB', defaults)
@@ -313,21 +320,26 @@ function SlimFrames:OnInitialize()
   self.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
   self.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
 
-  -- TODO: need to figure out how to hide these during a cinematic -- maybe a frame strata issue?
-  -- hide default frames
   if self.db.global.playerEnabled then
-    -- TODO: player frame keeps popping up sometimes -- figure out how to stop it
+    UnregisterUnitWatch(PlayerFrame)
+    PlayerFrame:UnregisterAllEvents()
+    PlayerFrame:SetScript('OnEvent', nil)
+    PlayerFrame:SetScript('OnLoad', nil)
+    PlayerFrame:SetScript('OnUpdate', nil)
+    PlayerFrame:HookScript('OnShow', forceHideFrame)
     PlayerFrame:Hide()
-    PlayerFrame:SetScript('OnShow', function(self) self:Hide() end)
   else
     SlimPlayerFrame:Hide() -- might need to call some function on the target frame here that disables itself
   end
 
   if self.db.global.targetEnabled then
     UnregisterUnitWatch(TargetFrame)
+    TargetFrame:UnregisterAllEvents()
+    TargetFrame:SetScript('OnEvent', nil)
+    TargetFrame:SetScript('OnLoad', nil)
     TargetFrame:SetScript('OnUpdate', nil)
-    -- the Blizzard target frame uses the Update function to toggle its own visibility
-    TargetFrame.Update = function () end
+    TargetFrame:HookScript('OnShow', forceHideFrame)
+    TargetFrame:Hide()
   else
     SlimTargetFrame:Hide() -- might need to call some function on the target frame here that disables itself
   end
